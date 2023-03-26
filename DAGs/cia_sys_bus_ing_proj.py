@@ -39,7 +39,7 @@ KINIT=BashOperator(
 
 CIA_D_ING_SYS_RAW_CONTROLE_BUS=BashOperator( 
     task_id='CIA_D_ING_SYS_RAW_CONTROLE_BUS', 
-    bash_command="echo '{{ var.value.base_path }}/common/{{ var.value.engine_script }} {{ var.value.base_path }}/common/{{ var.value.par_path }}/ingest-cia-generique-controle-par.yaml {{ var.value.odate }}'",
+    bash_command="echo '{{ var.value.base_path }}/common/{{ var.value.engine_script }} {{ var.value.base_path }}/common/{{ var.value.ing_path }}/ingest-cia-generique-controle.yaml {{ var.value.odate }}'",
     dag=dag,
 )
 for dependency in [START]:
@@ -56,18 +56,18 @@ for dependency in [START]:
 
 CIA_D_ING_SYS_RAW_OBJECT_DEL_BUS=BashOperator(
     task_id='CIA_D_ING_SYS_RAW_OBJECT_DEL_BUS',
-    bash_command="echo '{{ var.value.base_path }}/proj/{{ var.value.engine_script }} {{ var.value.base_path }}/proj/{{ var.value.par_path }}/ingest-cia-sys-objectif_del.yaml {{ var.value.odate }}'",
+    bash_command="echo '{{ var.value.base_path }}/proj/{{ var.value.engine_script }} {{ var.value.base_path }}/proj/{{ var.value.ing_path }}/ingest-cia-sys-objectif_del.yaml {{ var.value.odate }}'",
     dag=dag,
 )
 for dependency in [START]:
     dependency >> CIA_D_ING_SYS_RAW_OBJECT_DEL_BUS
 
-generic_tables_from_par = [{"CIA_D_ING_SYS_RAW_APPO_BUS": "ingest-cia-appo-par.yaml"},{"CIA_D_ING_SYS_RAW_MARC_BUS": "ingest-cia-marc-par.yaml"},{"CIA_D_ING_SYS_RAW_NAF_BUS": "ingest-cia-naf-par.yaml"},{"CIA_D_ING_SYS_RAW_CANAL_BUS": "ingest-cia-sys-canal.yaml"},{"CIA_D_ING_SYS_RAW_CAT_VEH_BUS": "ingest-cia-sys-cat_veh.yaml"},{"CIA_D_ING_SYS_RAW_ENERGIE_BUS": "ingest-cia-sys-energie.yaml"},{"CIA_D_ING_SYS_RAW_GENRE_VEH_BUS": "ingest-cia-sys-genre_veh.yaml"},{"CIA_D_ING_SYS_RAW_LEAD_STAT_BUS": "ingest-cia-sys-lead_STAT.yaml"},{"CIA_D_ING_SYS_RAW_LOI_OM_BUS": "ingest-cia-sys-loi_om.yaml"},{"CIA_D_ING_SYS_RAW_OBJ_COEF_BUS": "ingest-cia-sys-obj_coef.yaml"},{"CIA_D_ING_SYS_RAW_REG_APP_BUS": "ingest-cia-sys-reg_app.yaml"},{"CIA_D_ING_SYS_RAW_REG_DEL_BUS": "ingest-cia-sys-reg_del.yaml"},{"CIA_D_ING_SYS_RAW_REGION_BUS": "ingest-cia-sys-region.yaml"},{"CIA_D_ING_SYS_RAW_TYPE_CMD_BUS": "ingest-cia-sys-type_cmd.yaml"}]
-for d in generic_tables_from_par:
+generic_tables_from_csv = [{"CIA_D_ING_SYS_RAW_APPO_BUS": "ingest-cia-appo.yaml"},{"CIA_D_ING_SYS_RAW_MARC_BUS": "ingest-cia-marc.yaml"},{"CIA_D_ING_SYS_RAW_NAF_BUS": "ingest-cia-naf.yaml"},{"CIA_D_ING_SYS_RAW_CANAL_BUS": "ingest-cia-sys-canal.yaml"},{"CIA_D_ING_SYS_RAW_CAT_VEH_BUS": "ingest-cia-sys-cat_veh.yaml"},{"CIA_D_ING_SYS_RAW_ENERGIE_BUS": "ingest-cia-sys-energie.yaml"},{"CIA_D_ING_SYS_RAW_GENRE_VEH_BUS": "ingest-cia-sys-genre_veh.yaml"},{"CIA_D_ING_SYS_RAW_LEAD_STAT_BUS": "ingest-cia-sys-lead_STAT.yaml"},{"CIA_D_ING_SYS_RAW_LOI_OM_BUS": "ingest-cia-sys-loi_om.yaml"},{"CIA_D_ING_SYS_RAW_OBJ_COEF_BUS": "ingest-cia-sys-obj_coef.yaml"},{"CIA_D_ING_SYS_RAW_REG_APP_BUS": "ingest-cia-sys-reg_app.yaml"},{"CIA_D_ING_SYS_RAW_REG_DEL_BUS": "ingest-cia-sys-reg_del.yaml"},{"CIA_D_ING_SYS_RAW_REGION_BUS": "ingest-cia-sys-region.yaml"},{"CIA_D_ING_SYS_RAW_TYPE_CMD_BUS": "ingest-cia-sys-type_cmd.yaml"}]
+for d in generic_tables_from_csv:
     for key, value in d.items():
         key = BashOperator(
             task_id=key,
-            bash_command="echo '{} {}/{} {}'".format("{{ var.value.base_path }}/proj/{{ var.value.engine_script }}", "{{ var.value.base_path }}/proj/{{ var.value.par_path }}", value, "{{ var.value.odate }}"),
+            bash_command="echo '{} {}/{} {}'".format("{{ var.value.base_path }}/proj/{{ var.value.engine_script }}", "{{ var.value.base_path }}/proj/{{ var.value.ing_path }}", value, "{{ var.value.odate }}"),
             dag=dag,
         )
         CIA_D_ING_SYS_RAW_DATA_BUS >> key

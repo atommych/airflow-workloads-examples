@@ -71,3 +71,5 @@ Add the following variables to your Airflow instance using the Airflow UI:
 * **engine_script** - Path to the Spark engine script.
 * **base_path** - Path to the base project folder.
 * **odate** - Date of the data to be processed.
+
+![DAG for data ingestion](/docs/imgs/airflow_variables.png)
