@@ -54,7 +54,7 @@ https://airflow.apache.org/docs/apache-airflow/stable/start.html
 
 ### Deploy DAGs
 
-Deploy the [/DAGs/]() files from into your Airflow DAGs folder.
+Deploy the [/DAGs/](https://github.com/atommych/airflow-workloads-examples/tree/main/DAGs) files from into your Airflow DAGs folder.
 
 Usually it is located in */usr/local/airflow/dags/*
 
