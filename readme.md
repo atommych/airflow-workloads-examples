@@ -32,8 +32,8 @@ https://airflow.apache.org/docs/apache-airflow/stable/start.html
 ## Use cases:
 
 * [Data Ingestion](#CIA_SYS_BUS_ING_PROJ) - DAG for data ingestion from same sources using BashOperator to submit Spark Jobs.
-* [Star Schema processing]() - DAG for Datawarehouse data processing.
-* [Smart Tables processing]() - DAG for Smart tables data processing.
+* [Star Schema processing](#CIA_SYS_BUS_ENH_PROJ) - DAG for Datawarehouse data processing.
+* [Smart Tables processing](#CIA_SYS_BUS_EXP_PROJ) - DAG for Smart tables data processing.
 
 
 ## DAGs

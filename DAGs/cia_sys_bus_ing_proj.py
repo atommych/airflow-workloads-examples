@@ -13,7 +13,7 @@ args = {
 }
 
 dag = DAG(
-    dag_id='CIA_SYS_BUS_RAW_PROJ',
+    dag_id='CIA_SYS_BUS_ING_PROJ',
     default_args=args,
     catchup=False,
     schedule_interval='0 23 * * 1-5',
@@ -39,7 +39,7 @@ KINIT=BashOperator(
 
 CIA_D_ING_SYS_RAW_CONTROLE_BUS=BashOperator( 
     task_id='CIA_D_ING_SYS_RAW_CONTROLE_BUS', 
-    bash_command="echo '{{ var.value.base_path }}/common/{{ var.value.engine_script }} {{ var.value.base_path }}/common/{{ var.value.ing_path }}/ingest-cia-generique-controle.yaml {{ var.value.odate }}'",
+    bash_command="echo '{{ var.value.base_path }}/sys/{{ var.value.engine_script }} {{ var.value.base_path }}/sys/{{ var.value.ing_path }}/ingest-cia-generique-controle.yaml {{ var.value.odate }}'",
     dag=dag,
 )
 for dependency in [START]:
@@ -47,7 +47,7 @@ for dependency in [START]:
 
 CIA_D_ING_SYS_RAW_DATA_BUS=BashOperator(
     task_id='CIA_D_ING_SYS_RAW_DATA_BUS',
-    bash_command="echo 'hdfs dfs -put {{ var.value.base_path }}/inputs/ingest-cia-generique-data-{{ var.value.odate }}.csv /cia_srv/bus/sys/raw/data/{{ var.value.odate }}/.'",
+    bash_command="echo 'hdfs dfs -put {{ var.value.base_path }}/sys/inputs/ingest-cia-generique-data-{{ var.value.odate }}.csv /cia_srv/bus/sys/raw/data/{{ var.value.odate }}/.'",
     dag=dag,
 )
 for dependency in [START]:
@@ -56,7 +56,7 @@ for dependency in [START]:
 
 CIA_D_ING_SYS_RAW_OBJECT_DEL_BUS=BashOperator(
     task_id='CIA_D_ING_SYS_RAW_OBJECT_DEL_BUS',
-    bash_command="echo '{{ var.value.base_path }}/proj/{{ var.value.engine_script }} {{ var.value.base_path }}/proj/{{ var.value.ing_path }}/ingest-cia-sys-objectif_del.yaml {{ var.value.odate }}'",
+    bash_command="echo '{{ var.value.base_path }}/sys/{{ var.value.engine_script }} {{ var.value.base_path }}/sys/{{ var.value.ing_path }}/ingest-cia-sys-objectif_del.yaml {{ var.value.odate }}'",
     dag=dag,
 )
 for dependency in [START]:
@@ -67,7 +67,7 @@ for d in generic_tables_from_csv:
     for key, value in d.items():
         key = BashOperator(
             task_id=key,
-            bash_command="echo '{} {}/{} {}'".format("{{ var.value.base_path }}/proj/{{ var.value.engine_script }}", "{{ var.value.base_path }}/proj/{{ var.value.ing_path }}", value, "{{ var.value.odate }}"),
+            bash_command="echo '{} {}/{} {}'".format("{{ var.value.base_path }}/sys/{{ var.value.engine_script }}", "{{ var.value.base_path }}/sys/{{ var.value.ing_path }}", value, "{{ var.value.odate }}"),
             dag=dag,
         )
         CIA_D_ING_SYS_RAW_DATA_BUS >> key
